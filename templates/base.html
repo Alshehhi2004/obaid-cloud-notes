@@ -1,0 +1,8 @@
+<!doctype html>
+<html lang="en">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="Obaid's Cloud Notes, a personal notebook built for CCEN 448."><title>{% block title %}Obaid's Cloud Notes{% endblock %}</title><link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></head>
+<body>
+<header><nav class="wrap" aria-label="Main navigation"><a class="brand" href="{{ url_for('home') }}"><span class="mark">O.</span><span>Cloud Notes<small>BY OBAID ALSHEHHI</small></span></a><div class="nav-right">{% if g.user %}<span class="username">{{ g.user.username }}</span><form action="{{ url_for('logout') }}" method="post"><input type="hidden" name="csrf_token" value="{{ csrf_token() }}"><button class="quiet" type="submit">Log out ↗</button></form>{% else %}<a href="{{ url_for('login') }}">Log in</a><a class="button compact" href="{{ url_for('register') }}">Get started ↗</a>{% endif %}</div></nav></header>
+<main class="wrap">{% with messages=get_flashed_messages(with_categories=true) %}{% for category,message in messages %}<div class="notice {{ category }}" role="status">{{ message }}</div>{% endfor %}{% endwith %}{% block content %}{% endblock %}</main>
+<footer class="wrap"><span>CCEN 448 · Lab 6 · Obaid Alshehhi</span><span class="server"><span class="dot"></span> Served by <strong>{{ instance_name }}</strong></span></footer>
+</body></html>

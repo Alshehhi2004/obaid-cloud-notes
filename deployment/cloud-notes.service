@@ -1,0 +1,23 @@
+[Unit]
+Description=Obaid Cloud Notes web application
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=ubuntu
+Group=ubuntu
+WorkingDirectory=/opt/website
+EnvironmentFile=/etc/cloud-notes/app.env
+ExecStartPre=/opt/website/.venv/bin/flask --app app:create_app init-db
+ExecStart=/opt/website/.venv/bin/gunicorn --workers 2 --threads 2 --bind 0.0.0.0:8000 --access-logfile - --error-logfile - app:create_app()
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+UMask=0027
+
+[Install]
+WantedBy=multi-user.target
