@@ -40,7 +40,7 @@ def create_app(test_config=None):
         SESSION_COOKIE_SECURE=os.environ.get('COOKIE_SECURE', 'false').lower() == 'true',
         PERMANENT_SESSION_LIFETIME=timedelta(hours=1),
         MAX_CONTENT_LENGTH=64 * 1024,
-        WTF_CSRF_TIME_LIMIT=timedelta(hours=1),
+        WTF_CSRF_TIME_LIMIT=3600,
     )
     if test_config:
         app.config.update(test_config)
